@@ -14,9 +14,10 @@ def httponly_secure(config_file):
 
     webdriver_reusables.login(browser, None, None, config_file)
 
-    pyautogui.keyDown('shift')
+    pyautogui.keyDown('shiftleft')
+    pyautogui.press('shiftright')
     pyautogui.press('f9')
-    pyautogui.keyUp('shift')
+    pyautogui.keyUp('shiftleft')
     
     time.sleep(2)
 

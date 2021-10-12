@@ -1,4 +1,3 @@
-from selenium.webdriver.common.by import By
 import time
 from reusables import base_reusables, webdriver_reusables, os_reusables
 import os
@@ -12,7 +11,7 @@ def clickjacking(config_file):
     with open('./HTML/clickjacking.html', 'w') as cjw:
         cjw.write(code.replace(r'{{url}}', base_data.get('url')))
         
-    browser.get("file:////"+ os.getcwd() +"/HTML/clickjacking.html")
+    browser.get("file:///"+ os.getcwd() +"/HTML/clickjacking.html")
     
     time.sleep(2)
     

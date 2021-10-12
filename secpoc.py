@@ -1,5 +1,5 @@
 import time
-from Vulns import clickjacking, secure_httponly, concurrent_sessions, username_enumration, browser_cache, session_deletion
+from Vulns import clickjacking, secure_httponly, concurrent_sessions, username_enumration, browser_cache, session_deletion, session_fixation
 from reusables import os_reusables, base_reusables
 import getopt, sys
 
@@ -44,7 +44,8 @@ def main(argv):
             concurrent_sessions.concurrent_sessions,
             secure_httponly.httponly_secure,
             browser_cache.browser_cache,
-            username_enumration.username_enumration
+            username_enumration.username_enumration,
+            session_fixation.session_fixation,
             ]
 
 
@@ -66,6 +67,8 @@ def main(argv):
     for opt, arg in  opts:
         if opt == '-h':
             get_help()
+        if opt == '--config':
+            config_file = arg
         if opt == '-i':
             for i in arg.split(','):
                 if i:

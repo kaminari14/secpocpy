@@ -11,7 +11,7 @@ def take_screenshot(directory_path, filename, config_file, sleep = 0):
     directory = './POCs/' + base_conf.get('application_name') + "/" + directory_path
     os_reusables.makedirectory(directory)
     with mss.mss() as sct:
-        mon = sct.monitors[2]
+        mon = sct.monitors[int(get_config_data('screen_info', './config_files/env_config.ini').get('monitor'))]
         monitor = {
             "top": mon["top"] + 40,  
             "left": mon["left"], 
