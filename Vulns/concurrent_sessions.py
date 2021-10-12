@@ -18,8 +18,14 @@ def concurrent_sessions(config_file):
     pyautogui.press('right')
     pyautogui.keyUp('winleft')
 
+    browser1.refresh()
+    browser2.refresh()
+
     time.sleep(1)
     base_reusables.take_screenshot('Concurrennt_Sessions/', 'Concurrent_sessions.png', config_file)
+
+    webdriver_reusables.logout(browser1, config_file)
+    webdriver_reusables.logout(browser2, config_file)
 
     browser1.quit()
     browser2.quit()

@@ -10,9 +10,10 @@ def session_deletion(config_file):
 
     #login
     webdriver_reusables.login(browser, None, None, config_file)
-    pyautogui.keyDown('shift')
+    pyautogui.keyDown('shiftleft')
+    pyautogui.press('shiftright')
     pyautogui.press('f9')
-    pyautogui.keyUp('shift')
+    pyautogui.keyUp('shiftleft')
     time.sleep(2)
     pyautogui.keyDown('winleft')
     pyautogui.press('right')
@@ -32,12 +33,15 @@ def session_deletion(config_file):
     
     #add the cookies
     browser = webdriver_reusables.initialise_webdriver()
+    browser.delete_all_cookies()
     browser.get(base_config.get('url'))
     for cookie in cookies:
         browser.add_cookie(cookie_dict=cookie)
-    pyautogui.keyDown('shift')
+
+    pyautogui.keyDown('shiftleft')
+    pyautogui.press('shiftright')
     pyautogui.press('f9')
-    pyautogui.keyUp('shift')
+    pyautogui.keyUp('shiftleft')
     time.sleep(2)
     pyautogui.keyDown('winleft')
     pyautogui.press('right')
