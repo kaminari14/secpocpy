@@ -10,30 +10,30 @@ def initialise_webdriver(config, ops = []):
     options = webdriver.FirefoxOptions()
     for i in ops:
         options.add_argument(i)
-    if firefox_config.get('webdriver_location'):
-        options.binary_location = firefox_config.get()
+    if firefox_config.get('firefox_location'):
+        options.binary_location = firefox_config.get('firefox_location')
     profile = webdriver.FirefoxProfile(firefox_config.get('profile_location'))
-    browser = webdriver.Firefox(executable_path='./drivers/geckodriver', firefox_profile=profile, firefox_options=options)
+    browser = webdriver.Firefox(executable_path=firefox_config.get("webdriver_location"), firefox_profile=profile, firefox_options=options)
     browser.implicitly_wait(10)
     browser.maximize_window()
     return  browser
 
 
 def login(browser, username, password, config, open_url = True):
-    #try:
-    login_info = config['login']
-    if open_url:
-        browser.get(login_info.get('url'))
-    time.sleep(5)
-    username_btn = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, login_info.get('username_css'))))
-    password_btn = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, login_info.get('password_css'))))
-    submit_btn = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, login_info.get('submit_css'))))
-    username_btn.send_keys(username if username else login_info.get('username'))
-    password_btn.send_keys(password if password else login_info.get('password'))
-    submit_btn.click()
-    '''except Exception as e:
+    try:
+        login_info = config['login']
+        if open_url:
+            browser.get(login_info.get('url'))
+        time.sleep(5)
+        username_btn = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, login_info.get('username_css'))))
+        password_btn = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, login_info.get('password_css'))))
+        submit_btn = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, login_info.get('submit_css'))))
+        username_btn.send_keys(username if username else login_info.get('username'))
+        password_btn.send_keys(password if password else login_info.get('password'))
+        submit_btn.click()
+    except Exception as e:
         print(e)
-        print('Something went wrong with Login functionality')'''
+        print('Something went wrong with Login functionality')
 
 
 def logout(browser, config):
