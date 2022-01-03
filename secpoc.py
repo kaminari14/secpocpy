@@ -36,6 +36,9 @@ def get_help():
     print(''.ljust(20)+'6. Username_enumration')
 
 
+
+
+
 def main(argv):
 
 
@@ -51,7 +54,6 @@ def main(argv):
 
     try:
         opts, args = getopt.getopt(argv,"hvi:x:",["config=",])
-        print('----',opts, '-------',args)
     except getopt.GetoptError:
         get_help()  
         quit()  
@@ -84,19 +86,27 @@ def main(argv):
         get_help()
         quit()
     
-    config = base_reusables.get_config_data('base', config_file)
-    if not config:
+    config_data = base_reusables.get_config_data(config_file)
+    env_data = base_reusables.get_config_data('./config_files/env_config.ini')
+    config = {'application_data': dict(config_data.items('base')), 
+        'login' :dict(config_data.items('login')), 
+        'screen_info': dict(env_data.items('screen_info')),
+        'firefox': dict(env_data.items('firefox'))
+    }
+
+
+    if 'application_data' not in config.keys():
         print('Invalid or Missing Config File')
         get_help()
         quit()
-    os_reusables.makedirectory('./POCs/' + config.get('application_name'))
+    os_reusables.makedirectory('./POCs/' + config['application_data'].get('application_name'))
 
     if not to_execute:
         for vuln in vulns:
-            vuln(config_file)
+            vuln(config=config)
     else:
         for vuln in to_execute:
-            vuln(config_file)
+            vuln(config=config)
 
 
 

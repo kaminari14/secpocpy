@@ -4,14 +4,14 @@ from reusables import os_reusables
 from configparser import RawConfigParser
 import time
 
-def take_screenshot(directory_path, filename, config_file, sleep = 0):
+def take_screenshot(directory_path, filename, config, sleep = 0):
+    application_data = config['application_data']
     time.sleep(sleep)
-    base_conf = get_config_data('base',config_file)
     monitor_res = get_monitors()[0]
-    directory = './POCs/' + base_conf.get('application_name') + "/" + directory_path
+    directory = './POCs/' + application_data.get('application_name') + "/" + directory_path
     os_reusables.makedirectory(directory)
     with mss.mss() as sct:
-        mon = sct.monitors[int(get_config_data('screen_info', './config_files/env_config.ini').get('monitor'))]
+        mon = sct.monitors[int(config['screen_info'].get('monitor'))]
         monitor = {
             "top": mon["top"] + 40,  
             "left": mon["left"], 
@@ -26,10 +26,11 @@ def take_screenshot(directory_path, filename, config_file, sleep = 0):
         mss.tools.to_png(sct_img.rgb, sct_img.size, output=directory+filename)
 
 
-def get_config_data(config_key,  config_file):
+def get_config_data(config_file):
     try:
         config = RawConfigParser()
         config.read(config_file)
     except:
         return None
-    return dict(config.items(config_key))
+    return config
+    #dict(config.items(config_key))
