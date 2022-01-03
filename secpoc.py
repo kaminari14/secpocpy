@@ -27,6 +27,7 @@ def get_help():
     print(''.ljust(20)+'4. Secure / HTTPOnly Flag')
     print(''.ljust(20)+'5. Browser Cache')
     print(''.ljust(20)+'6. Username_enumration')
+    print(''.ljust(20)+'7. Session Fixation')
     print('-x 1,2,3...'.ljust(18)+': Exclude the tests mentioned. options available')
     print(''.ljust(20)+'1. Session Deletion')
     print(''.ljust(20)+'2. Clickjacking')
@@ -34,7 +35,7 @@ def get_help():
     print(''.ljust(20)+'4. Secure / HTTPOnly Flag')
     print(''.ljust(20)+'5. Browser Cache')
     print(''.ljust(20)+'6. Username_enumration')
-
+    print(''.ljust(20)+'7. Session Fixation')
 
 
 
