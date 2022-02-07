@@ -1,5 +1,5 @@
 import time
-from Vulns import clickjacking, secure_httponly, concurrent_sessions, username_enumration, browser_cache, session_deletion, session_fixation
+from Vulns import clickjacking, secure_httponly, concurrent_sessions, username_enumration, browser_cache, session_deletion, session_fixation, verb_tampering, trace_method
 from reusables import os_reusables, base_reusables
 import getopt, sys
 
@@ -50,6 +50,8 @@ def main(argv):
             browser_cache.browser_cache,
             username_enumration.username_enumration,
             session_fixation.session_fixation,
+            verb_tampering.verb_tampering,
+            trace_method.trace_method
             ]
 
 
