@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weak Lockout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container-fluid m-1">
+        <div class="row">
+            <div class="col-3">
+                <table class="table shadow-sm p-3 mb-5 bg-body rounded">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Password</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{table_body}}
+                        <!--<tr onclick="selectpoc(1,16)">
+                            <td scope="row">1</td>
+                            <td>testpassword</td>
+                            <td>123456.12345</td>
+                        </tr>
+                        <tr onclick="selectpoc(2,16)">
+                            <td scope="row">2</td>
+                            <td>testpassword</td>
+                            <td>123456.12345</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-9">
+                <div class="container">
+                    {{poc_images}}
+                    <!--<img class="img-fluid poc1" src="../POCs/Test/Browser_cache/1-Loggedin.png" style="display:none" alt=""> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function selectpoc(n,x){
+            for (let i = 1; i < x+1; i++) {
+                if(i==n){
+                    document.querySelector(".poc"+i).style.display="block";
+                    document.querySelector(".table > tbody:nth-child(2) > tr:nth-child("+ i +")").style.backgroundColor="#d1e7dd";
+                }
+                else{
+                    document.querySelector(".poc"+i).style.display="none"
+                    document.querySelector(".table > tbody:nth-child(2) > tr:nth-child("+ i +")").style.backgroundColor="white";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

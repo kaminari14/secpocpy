@@ -5,13 +5,17 @@ import os
 
 def clickjacking(config):
     base_data = config['application_data']
+    os_reusables.makedirectory('./POCs/' + base_data.get('application_name') + '/Clickjacking/')
+
     browser = webdriver_reusables.initialise_webdriver(config)
+    path = 'POCs/' + base_data.get('application_name') + '/Clickjacking/clickjacking.html'
+
     with open('./HTML/clickjacking.html', 'r') as cjr:
         code = cjr.read()
-    with open('./HTML/clickjacking.html', 'w') as cjw:
+    with open(path, 'w') as cjw:
         cjw.write(code.replace(r'{{url}}', base_data.get('url')))
         
-    browser.get("file:///"+ os.getcwd() +"/HTML/clickjacking.html")
+    browser.get("file:///"+ os.getcwd() +"/"+ path)
     
     time.sleep(2)
     

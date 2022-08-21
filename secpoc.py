@@ -1,5 +1,6 @@
 import time
-from Vulns import clickjacking, secure_httponly, concurrent_sessions, username_enumration, browser_cache, session_deletion, session_fixation, verb_tampering, trace_method
+from Vulns import clickjacking, secure_httponly, concurrent_sessions, username_enumration, browser_cache, \
+    session_deletion, session_fixation, verb_tampering, trace_method, weak_lockout
 from reusables import os_reusables, base_reusables
 import getopt, sys
 
@@ -13,63 +14,64 @@ ___  ___  ___ _ __   ___   ___ _ __  _   _
 By Kaminari14 - https://github.com/kaminari14
 ''')
 
-print('This tool does not say with certainty if a vulnurability is present or not. Please look at the POCs and decide if manual intervention is needed.\n\n')
-
+print(
+    'This tool does not say with certainty if a vulnurability is present or not. Please look at the POCs and decide if manual intervention is needed.\n\n')
 
 
 def get_help():
     print('USAGE: python -m secpoc.py [-i test1,test2,test3,...] [-x 1,2,3,...] [-h] [--config=</path/to/config>]')
-    print('-h'.ljust(18)+": help")
-    print('-i 1,2,3...'.ljust(18)+ ': Include  only the tests mentioned. options available')
-    print(''.ljust(20)+'1. Session Deletion')
-    print(''.ljust(20)+'2. Clickjacking')
-    print(''.ljust(20)+'3. Concurrent Sessions')
-    print(''.ljust(20)+'4. Secure / HTTPOnly Flag')
-    print(''.ljust(20)+'5. Browser Cache')
-    print(''.ljust(20)+'6. Username_enumration')
-    print(''.ljust(20)+'7. Session Fixation')
-    print('-x 1,2,3...'.ljust(18)+': Exclude the tests mentioned. options available')
-    print(''.ljust(20)+'1. Session Deletion')
-    print(''.ljust(20)+'2. Clickjacking')
-    print(''.ljust(20)+'3. Concurrent Sessions')
-    print(''.ljust(20)+'4. Secure / HTTPOnly Flag')
-    print(''.ljust(20)+'5. Browser Cache')
-    print(''.ljust(20)+'6. Username_enumration')
-    print(''.ljust(20)+'7. Session Fixation')
-
-
+    print('-h'.ljust(18) + ": help")
+    print('-i 1,2,3...'.ljust(18) + ': Include  only the tests mentioned. options available')
+    print(''.ljust(20) + '1. Session Deletion')
+    print(''.ljust(20) + '2. Clickjacking')
+    print(''.ljust(20) + '3. Concurrent Sessions')
+    print(''.ljust(20) + '4. Secure / HTTPOnly Flag')
+    print(''.ljust(20) + '5. Browser Cache')
+    print(''.ljust(20) + '6. Username_enumration')
+    print(''.ljust(20) + '7. Session Fixation')
+    print(''.ljust(20) + '8. Verb Tampering')
+    print(''.ljust(20) + '9. TRACE Method')
+    print(''.ljust(20) + '10. Weak Lockout')
+    print('-x 1,2,3...'.ljust(18) + ': Exclude the tests mentioned. options available')
+    print(''.ljust(20) + '1. Session Deletion')
+    print(''.ljust(20) + '2. Clickjacking')
+    print(''.ljust(20) + '3. Concurrent Sessions')
+    print(''.ljust(20) + '4. Secure / HTTPOnly Flag')
+    print(''.ljust(20) + '5. Browser Cache')
+    print(''.ljust(20) + '6. Username_enumration')
+    print(''.ljust(20) + '7. Session Fixation')
+    print(''.ljust(20) + '8. Verb Tampering')
+    print(''.ljust(20) + '9. TRACE Method')
+    print(''.ljust(20) + '10. Weal Lockout')
 
 
 def main(argv):
-
-
     vulns = [session_deletion.session_deletion,
-            clickjacking.clickjacking,
-            concurrent_sessions.concurrent_sessions,
-            secure_httponly.httponly_secure,
-            browser_cache.browser_cache,
-            username_enumration.username_enumration,
-            session_fixation.session_fixation,
-            verb_tampering.verb_tampering,
-            trace_method.trace_method
-            ]
-
+             clickjacking.clickjacking,
+             concurrent_sessions.concurrent_sessions,
+             secure_httponly.httponly_secure,
+             browser_cache.browser_cache,
+             username_enumration.username_enumration,
+             session_fixation.session_fixation,
+             verb_tampering.verb_tampering,
+             trace_method.trace_method,
+             weak_lockout.weak_lockout]
 
     try:
-        opts, args = getopt.getopt(argv,"hvi:x:",["config=",])
+        opts, args = getopt.getopt(argv, "hvi:x:", ["config=", ])
     except getopt.GetoptError:
-        get_help()  
-        quit()  
-    
-    to_execute=[]
+        get_help()
+        quit()
+
+    to_execute = []
     config_file = None
 
     for arg in args:
-        argdata=arg.split('=')
-        if argdata[0]=='config':
-            config_file=argdata[1]
+        argdata = arg.split('=')
+        if argdata[0] == 'config':
+            config_file = argdata[1]
 
-    for opt, arg in  opts:
+    for opt, arg in opts:
         if opt == '-h':
             get_help()
         if opt == '--config':
@@ -77,27 +79,26 @@ def main(argv):
         if opt == '-i':
             for i in arg.split(','):
                 if i:
-                    to_execute.append(vulns[int(i)-1])
-            
+                    to_execute.append(vulns[int(i) - 1])
+
         if opt == '-x':
             for j in range(len(vulns)):
-                if j+1 not in [int(i) for i in arg.split(',')]:
+                if j + 1 not in [int(i) for i in arg.split(',')]:
                     to_execute.append(vulns[int(j)])
-    
+
     if not config_file:
         print('Config file not mentioned. Use --config')
         get_help()
         quit()
-    
+
     config_data = base_reusables.get_config_data(config_file)
     env_data = base_reusables.get_config_data('./config_files/env_config.ini')
-    config = {'application_data': dict(config_data.items('base')), 
-        'login' :dict(config_data.items('login')), 
-        'screen_info': dict(env_data.items('screen_info')),
-        'firefox': dict(env_data.items('firefox'))
-    }
-
-
+    config = {'application_data': dict(config_data.items('base')),
+              'login': dict(config_data.items('login')),
+              'screen_info': dict(env_data.items('screen_info')),
+              'firefox': dict(env_data.items('firefox'))
+              }
+    print(config)
     if 'application_data' not in config.keys():
         print('Invalid or Missing Config File')
         get_help()
@@ -110,7 +111,6 @@ def main(argv):
     else:
         for vuln in to_execute:
             vuln(config=config)
-
 
 
 if __name__ == "__main__":

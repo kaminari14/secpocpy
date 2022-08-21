@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 
 #config_files
-farhan_test.ini 
+test.ini
 
 
 POCs/*

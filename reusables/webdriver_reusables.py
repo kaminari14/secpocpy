@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 import time
 
+
 def initialise_webdriver(config, ops = []):
     firefox_config = config['firefox']
     options = webdriver.FirefoxOptions()
@@ -16,7 +17,7 @@ def initialise_webdriver(config, ops = []):
     browser = webdriver.Firefox(executable_path=firefox_config.get("webdriver_location"), firefox_profile=profile, firefox_options=options)
     browser.implicitly_wait(10)
     browser.maximize_window()
-    return  browser
+    return browser
 
 
 def login(browser, username, password, config, open_url = True):
