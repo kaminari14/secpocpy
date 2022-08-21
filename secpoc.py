@@ -42,7 +42,7 @@ def get_help():
     print(''.ljust(20) + '7. Session Fixation')
     print(''.ljust(20) + '8. Verb Tampering')
     print(''.ljust(20) + '9. TRACE Method')
-    print(''.ljust(20) + '10. Weal Lockout')
+    print(''.ljust(20) + '10. Weak Lockout')
 
 
 def main(argv):
@@ -103,6 +103,7 @@ def main(argv):
         print('Invalid or Missing Config File')
         get_help()
         quit()
+    os_reusables.makedirectory('./POCs')
     os_reusables.makedirectory('./POCs/' + config['application_data'].get('application_name'))
 
     if not to_execute:
