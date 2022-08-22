@@ -47,5 +47,5 @@ pass2 = <password for the second username>
 ## Basic Usage
 
 ```
-python -m secpoc.py [-i 1,2,3,...] [-x 1,2,3,...] [-h] [--config=</path/to/application/config/file>]
+python secpoc.py [-i 1,2,3,...] [-x 1,2,3,...] [-h] [--config=</path/to/application/config/file>]
 ```
