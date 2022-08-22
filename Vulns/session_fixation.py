@@ -3,6 +3,9 @@ from reusables import base_reusables, webdriver_reusables
 import pyautogui
 
 def session_fixation(config):
+
+    print('[+] Starting test for Session Fixation')
+
     base_config = config['application_data']
     browser = webdriver_reusables.initialise_webdriver(config)
 
@@ -29,7 +32,6 @@ def session_fixation(config):
     browser2 = webdriver_reusables.initialise_webdriver(config, ops=['--incognito'])
     browser2.get(login_info.get('url'))
     for cookie in cookies:
-        print(cookie)
         browser2.add_cookie(cookie_dict=cookie)
 
         
@@ -62,3 +64,5 @@ def session_fixation(config):
 
     browser2.quit()
     browser.quit()
+
+    print('Finished')

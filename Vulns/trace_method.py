@@ -3,6 +3,9 @@ import requests, os, time
 from html import escape
 
 def trace_method(config):
+
+    print('[+] Starting test for Trace Method')
+
     application_data = config.get('application_data')
     browser = webdriver_reusables.initialise_webdriver(config)
     os_reusables.makedirectory('./POCs/'+ application_data.get('application_name') + '/Trace_Method/')
@@ -38,3 +41,5 @@ def trace_method(config):
         base_reusables.take_screenshot("Trace_Method/", method+ ".png", config)
 
     browser.quit()
+
+    print('Finished')

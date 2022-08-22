@@ -3,6 +3,9 @@ import requests, os, time
 
 
 def verb_tampering(config):
+
+    print('[+] Starting test for  Verb tampering')
+
     application_data = config.get('application_data')
     browser = webdriver_reusables.initialise_webdriver(config)
     os_reusables.makedirectory('./POCs/'+ application_data.get('application_name') + '/Verb_Tampering/')
@@ -32,3 +35,5 @@ def verb_tampering(config):
         base_reusables.take_screenshot("Verb_Tampering/", method+ "_VerbTampering.png", config)
 
     browser.quit()
+
+    print('Finished')

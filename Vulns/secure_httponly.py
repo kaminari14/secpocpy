@@ -6,11 +6,13 @@ from reusables import base_reusables, webdriver_reusables, os_reusables
 import pyautogui
 
 def httponly_secure(config):
+
+    print('[+] Starting test for Secure HTTPOnly Flags')
+
     base_config = config['application_data']
     browser = webdriver_reusables.initialise_webdriver(config)
     browser.get(base_config.get('url'))
     time.sleep(3)
-    print(browser.get_cookies())
 
     webdriver_reusables.login(browser, None, None, config)
 
@@ -23,4 +25,5 @@ def httponly_secure(config):
 
     base_reusables.take_screenshot('httponly_secure/','Secure_httponly1.png', config)
     browser.quit()
-    
+
+    print('Finished')

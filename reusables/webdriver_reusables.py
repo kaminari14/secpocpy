@@ -1,9 +1,8 @@
 from selenium import webdriver
-from reusables import base_reusables
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-import time
+import time, sys
 
 
 def initialise_webdriver(config, ops = []):
@@ -20,12 +19,12 @@ def initialise_webdriver(config, ops = []):
     return browser
 
 
-def login(browser, username, password, config, open_url = True):
+def login(browser, username, password, config, open_url = True, r=0):
     try:
         login_info = config['login']
         if open_url:
             browser.get(login_info.get('url'))
-        time.sleep(5)
+        browser.implicitly_wait(5)
         username_btn = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, login_info.get('username_css'))))
         password_btn = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, login_info.get('password_css'))))
         submit_btn = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, login_info.get('submit_css'))))
@@ -33,9 +32,10 @@ def login(browser, username, password, config, open_url = True):
         password_btn.send_keys(password if password else login_info.get('password'))
         submit_btn.click()
     except Exception as e:
-        print(e)
-        print('Something went wrong with Login functionality')
-
+        sys.stderr.write(str(e))
+        sys.stderr.write('Something went wrong with Login functionality')
+        if r==0:
+            login(browser, username, password, config, open_url=open_url, r=1)
 
 def logout(browser, config):
     try:
@@ -48,5 +48,5 @@ def logout(browser, config):
             logout_btn = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, button)))
             logout_btn.click()
     except Exception as e:
-        print(e)
-        print('something went wrong with logout funtionality')
+        sys.stderr.write(str(e))
+        sys.stderr.write('something went wrong with logout funtionality')

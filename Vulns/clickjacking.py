@@ -4,9 +4,12 @@ import os
 
 
 def clickjacking(config):
-    base_data = config['application_data']
-    os_reusables.makedirectory('./POCs/' + base_data.get('application_name') + '/Clickjacking/')
 
+    print('[+] Starting test for Clickjacking')
+
+    base_data = config['application_data']
+
+    os_reusables.makedirectory('./POCs/' + base_data.get('application_name') + '/Clickjacking/')
     browser = webdriver_reusables.initialise_webdriver(config)
     path = 'POCs/' + base_data.get('application_name') + '/Clickjacking/clickjacking.html'
 
@@ -16,10 +19,8 @@ def clickjacking(config):
         cjw.write(code.replace(r'{{url}}', base_data.get('url')))
         
     browser.get("file:///"+ os.getcwd() +"/"+ path)
-    
     time.sleep(2)
-    
     base_reusables.take_screenshot("Clickjacking/","Clickjacking1.png", config)
-    
     browser.quit()
 
+    print('Finished')

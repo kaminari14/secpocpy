@@ -4,6 +4,9 @@ import time
 from configparser import RawConfigParser
 
 def session_deletion(config):
+
+    print('[+] Starting test for Session Deletion')
+
     base_config = config['application_data']
     browser = webdriver_reusables.initialise_webdriver(config)
 
@@ -23,7 +26,6 @@ def session_deletion(config):
 
     #get-cookies
     cookies = browser.get_cookies()
-    print(cookies)
 
     #logout
     webdriver_reusables.logout(browser, config)
@@ -54,3 +56,5 @@ def session_deletion(config):
     base_reusables.take_screenshot('Session_Deletion/', '4-access_restricted_url.png', config, 5)
 
     browser.quit()
+
+    print('Finished')

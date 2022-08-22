@@ -3,7 +3,9 @@ from reusables import base_reusables, webdriver_reusables
 import pyautogui
 
 def concurrent_sessions(config):
-    
+
+    print('[+] Starting test for Concurrent Sessions')
+
     browser1 = webdriver_reusables.initialise_webdriver(config)
     webdriver_reusables.login(browser1, None, None, config)
 
@@ -30,4 +32,4 @@ def concurrent_sessions(config):
     browser1.quit()
     browser2.quit()
     
-
+    print('Finished')

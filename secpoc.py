@@ -5,12 +5,12 @@ from reusables import os_reusables, base_reusables
 import getopt, sys
 
 print('''
-___  ___  ___ _ __   ___   ___ _ __  _   _ 
+ ___  ___  ___ _ __   ___   ___ _ __  _   _ 
 / __|/ _ \/ __| '_ \ / _ \ / __| '_ \| | | |
 \__ \  __/ (__| |_) | (_) | (__| |_) | |_| |
 |___/\___|\___| .__/ \___/ \___| .__/ \__, |
-            | |              | |     __/ |
-            |_|              |_|    |___/ 
+              | |              | |     __/ |
+              |_|              |_|    |___/ 
 By Kaminari14 - https://github.com/kaminari14
 ''')
 
@@ -98,7 +98,6 @@ def main(argv):
               'screen_info': dict(env_data.items('screen_info')),
               'firefox': dict(env_data.items('firefox'))
               }
-    print(config)
     if 'application_data' not in config.keys():
         print('Invalid or Missing Config File')
         get_help()
